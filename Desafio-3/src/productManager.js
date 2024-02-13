@@ -1,6 +1,7 @@
+
 import fs from "fs" ;
 
-class ProductManager {
+export default class ProductManager {
     constructor(){
 
         this.path = "./prducts.json"
@@ -29,14 +30,8 @@ class ProductManager {
 
 
     getProducts = async() => {
-        let response = await fs.promises.readFile(this.path, "utf-8")      
-        console.log(JSON.parse(response) )                 
-         return JSON.parse(response) 
-
-        // let data = await fs.promises.readFile(this.path, "utf-8");
-        // let response = await JSON.parse(data);
-        // console.log(response);
-        // return response;
+        let response =await fs.promises.readFile(this.path, "utf-8")                       
+         return JSON.parse(response)
     }
 
     getProductById = async(id) =>{
@@ -62,34 +57,36 @@ class ProductManager {
         await fs.promises.writeFile(this.path,JSON.stringify(deleteID))
         console.log("removed product")
     }
-
-
  }
   
 
 
 // TESTING //
 
-  const testing = new ProductManager
+  
+const testing = new ProductManager
+    
     //testing.getProducts()
 
-    testing.addProduct('titilo1', 'descrip1', 1111, 'img1', 'abc1', 10)
-    testing.addProduct('titilo2', 'descrip2', 2222, 'img2', 'abc2', 20)
-    testing.addProduct('titilo3', 'descrip3', 3333, 'img3', 'abc3', 30)
+    // testing.addProduct('titilo1', 'descrip1', 1111, 'img1', 'abc1', 10)
     
+    // testing.addProduct('titilo2', 'descrip2', 2222, 'img2', 'abc2', 20)
+    // testing.addProduct('titilo3', 'descrip3', 3333, 'img3', 'abc3', 30)
+   
+
     //testing.getProductById(2)
     
-    
-    // testing.updateProduct(
-    //     {
-    //         title: 'titilo2',
-    //         description: 'descrip2',
-    //         price: 10000,
-    //         thumbnail: 'img2',
-    //         code: 'abc2',
-    //         stock: 100,
-    //         id: 2
-    //     })
-    
+    /*
+    testing.updateProduct(
+        {
+            title: 'titilo2',
+            description: 'descrip2',
+            price: 10000,
+            thumbnail: 'img2',
+            code: 'abc2',
+            stock: 100,
+            id: 2
+        })
+    */
 
    //testing.deleteProduct(3)
