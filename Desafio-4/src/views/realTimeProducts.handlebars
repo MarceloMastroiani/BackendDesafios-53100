@@ -1,0 +1,51 @@
+
+<h1>Lista de productos en tiempo real</h1>
+
+    <div>
+    {{#each products}}
+        <ul>
+            <li>Nombre: {{this.title}}</li>
+            <li>Descripcion: {{this.description}} </li>
+            <li>Codigo: {{this.code}}</li>
+            <li>Precio: ${{this.price}} </li>
+            <li>Stock: {{this.stock}}</li>
+            <li>Categoria: {{this.category}}</li>
+            <li>{{this.thumbnails}}</li>
+            <li>Estado:{{this.status}}</li>
+            <li>ID:{{this.id}}</li>
+        </ul>
+    {{/each}}
+</div>
+
+
+<div class="fromcont">  
+        <h2 class="titulo">Agregar productos</h2>
+    <form class="form" action="/realTimeProducts" method="post">
+
+        <label for="title">Nombre del producto</label> {{!-- 1 --}}
+        <input type="text" id="title" name="title">
+
+        <label for="description">Descripcion del producto</label>  {{!-- 2 --}}
+        <input type="text" id="description" name="description">
+
+        <label for="code">Codigo del producto</label> {{!-- 3 --}}
+        <input type="text" id="code" name="code">
+
+        <label for="price">Precio del producto</label> {{!-- 4 --}}
+        <input type="number" id="price" name="price">
+
+        <label for="stock">Cantidad en stock</label> {{!-- 5 --}}
+        <input type="number" id="stock" name="stock">
+
+        <label for="category">Categoria del producto</label> {{!-- 6 --}}
+        <input type="text" id="category" name="category">
+
+        <label for="thumbnails">Imagen del producto</label> {{!-- 7 --}}
+        <input type="file" id="thumbnails" name="thumbnails">
+        
+        <button type="submit"> Enviar producto</button>
+    </form>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>

@@ -11,7 +11,7 @@ app.use(express.json())
 
 const testing = new ProductManager
 const produ = testing.getProducts()
-
+const produID = testing.getProductById()
 
 // Reduce los producto al limite deseado, si no se le manda limite carga todos los productos 
 app.get('/products', async (req, res) => {
