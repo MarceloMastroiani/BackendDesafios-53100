@@ -2,7 +2,7 @@ import { Router } from "express";
 import fs from "fs"
 
 const productsRouter = Router()
-const pathProduct = "../data/productos.json"
+const pathProduct = "./src/data/productos.json"
 
 
 
@@ -38,7 +38,7 @@ productsRouter.get("/:pid", (req,res) => {
 
 // (POST) CREAR UN PRODUCTO //
 productsRouter.post("/", (req,res) => {
-
+console.log('entroooo')
     const {
         title,
         description,
@@ -116,37 +116,3 @@ productsRouter.delete("/:pid", (req,res) => {
 
 
 export default productsRouter
-
-
-
-/*
- {
-    "title": "lionel messi ",
-    "description": " jugador de futbol",
-    "code": "abc123",
-    "price": 1000,
-    "stock": 1,
-    "category": "dios",
-    "thumbnail": "thumbnail1.jpg"
-  }
-
-   {
-    "title": "julian alvarez",
-    "description": " jugador de futbol",
-    "code": "abc234",
-    "price": 9999,
-    "stock": 9,
-    "category": "arania",
-    "thumbnail": "thumbnail2.jpg"
-  }
-
-   {
-    "title": "dibu martinez",
-    "description": " jugador de futbol",
-    "code": "abc345",
-    "price": 23000,
-    "stock": 23,
-    "category": "te como",
-    "thumbnail": "thumbnail3.jpg"
-  }
-*/

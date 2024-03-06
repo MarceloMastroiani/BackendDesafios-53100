@@ -28,5 +28,16 @@
     "status": true,
     "stock": 8,
     "category": "Gaming"
+  },
+  {
+    "id": 4,
+    "title": "Iphone x",
+    "description": "De los mas potente de su epoca",
+    "code": "AS2344",
+    "price": "8500",
+    "status": true,
+    "stock": "5",
+    "category": "Telefono",
+    "thumbnails": ""
   }
 ]

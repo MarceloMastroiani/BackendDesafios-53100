@@ -1,19 +1,17 @@
     <h1>Lista de productos</h1>
-<div>
+<div class="productsList">
     {{#each products}}
         <ul>
-            <li>Nombre: {{this.title}}</li>
-            <li>Descripcion: {{this.description}} </li>
-            <li>Codigo: {{this.code}}</li>
-            <li>Precio: ${{this.price}} </li>
-            <li>Stock: {{this.stock}}</li>
-            <li>Categoria: {{this.category}}</li>
+            <li><span>Nombre:</span> {{this.title}}</li>
+            <li><span>Descripcion:</span> {{this.description}} </li>
+            <li><span>Codigo:</span> {{this.code}}</li>
+            <li><span>Precio:</span> ${{this.price}} </li>
+            <li><span>Stock:</span> {{this.stock}}</li>
+            <li><span>Categoria: </span>{{this.category}}</li>
             <li>{{this.thumbnails}}</li>
         </ul>
     {{/each}}
 </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/home.js"></script>
