@@ -15,15 +15,18 @@ viewsRouter.get('/', privateAccess, async (req,res)=>{
     let product = await productManager.getAll()
     res.render('home',{product});
 });
+
 //CREA Y MUESTRA LOS PRODUCTOS EN realTimeProducts
 viewsRouter.get('/realTimeProducts',privateAccess, async (req, res) => {
     let product = await productManager.getAll()
     res.render('realTimeProducts', {product});
 });
+
 //REMDERIZA EL CHAT
 viewsRouter.get('/chat',privateAccess,(req,res)=>{
     res.render('chat',{});
 })
+
 //RENDERIZA UNA VISTA PRODUCTS
 viewsRouter.get('/products', privateAccess, async (req,res)=>{
     let limit = req.query.limit || 10;
@@ -59,6 +62,7 @@ viewsRouter.get('/products', privateAccess, async (req,res)=>{
           res.render('product', {...result, user})
     
 })   
+
 //RENDERIZA LA VISTA DEL CARRITO
 viewsRouter.get('/carts/:cid', privateAccess, async (req,res)=>{
     let cid = req.params.cid
@@ -67,13 +71,21 @@ viewsRouter.get('/carts/:cid', privateAccess, async (req,res)=>{
     console.log({result})
     res.render('cart', {result} )
 })
+
+//RESTAURAR PASSWORD
+viewsRouter.get("/restore", privateAccess, (req, res) => {
+    res.render("restore");
+  });
+
 //VISTA DE REGISTRAR
 viewsRouter.get('/register', publicAccess, (req, res) => {
     res.render('register');
 })
+
 //VISTA DEL LOGIN
 viewsRouter.get('/login', publicAccess, (req, res) => {
     res.render('login');
 })
+
 
 export default viewsRouter
