@@ -1,4 +1,4 @@
-import { cartService } from "../repositories/index.js";
+import { cartService, productService } from "../repositories/index.js";
 
 export const cartByIdd = async (req, res) => {
   let id = req.params.cid;
@@ -14,18 +14,31 @@ export const creatCart = async (req, res) => {
 };
 
 export const cartAddProduct = async (req, res) => {
-  const { cid, pid } = req.params;
-  const quantity = req.body;
-  const updatedCart = await cartService.addProduct(cid, pid, quantity);
   try {
-    res.json({ status: "success", cart: updatedCart });
+    const cartId = req.params.cid;
+    const productId = req.params.pid;
+
+    const cart = await cartService.getCartById(cartId);
+    const product = await productService.getById(productId);
+
+    if (product) {
+      await cartService.addProduct(cartId, productId);
+      res.send({ status: "success" });
+    } else {
+      res
+        .status(404)
+        .send({ error: `Producto con la ID ${productId} no encontrado` });
+    }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error al agregar el producto al carrito:", error);
+    res.status(500).send("Error Interno del Server");
   }
 };
+
 export const cartDeleteProduct = async (req, res) => {
-  let cid = req.params.cid;
-  let pid = req.params.pid;
+  let { cid, pid } = req.params;
+  // let cid = req.params.cid;
+  // let pid = req.params.pid;
 
   let result = await cartService.deleteProduct(cid, pid);
 

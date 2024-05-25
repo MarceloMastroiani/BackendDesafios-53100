@@ -19,7 +19,7 @@ cartsRouter.get("/:cid", cartByIdd);
 cartsRouter.post("/create", creatCart);
 
 //AGREGA UN PRODUCTO AL CARRITO
-cartsRouter.post("/:cid/product/:pid", cartAddProduct); //checkRole("usuario"),
+cartsRouter.post("/:cid/product/:pid", cartAddProduct); //checkRole("usuario"),//FUNCIONA
 
 //ELIMINA EL PRODUCTO DEL CARRITO
 cartsRouter.delete("/:cid/products/:pid", cartDeleteProduct);

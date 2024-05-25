@@ -1,4 +1,5 @@
 const addToCart = (cartId, productId) => {
+  console.log(cartId, productId);
   fetch(`/api/carts/${cartId}/product/${productId}`, {
     method: "POST",
   }).then((res) => {
@@ -19,7 +20,7 @@ const purchaseCart = (cartId) => {
 };
 
 const deleteFromCart = (cartId, productId) => {
-  fetch(`/api/carts/${cartId}/product/${productId}`, {
+  fetch(`/api/carts/${cartId}/products/${productId}`, {
     method: "DELETE",
   }).then((res) => {
     if (res.status == 200) {

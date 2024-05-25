@@ -28,7 +28,7 @@ viewsRouter.get("/chat", privateAccess, viewChat); //checkRole("usuario"),
 viewsRouter.get("/products", privateAccess, viewProducts);
 
 //RENDERIZA LA VISTA DEL CARRITO
-viewsRouter.get("/cart/:cid", privateAccess, viewCarts);
+viewsRouter.get("/carts/:cid", privateAccess, viewCarts); //FUNCIONA
 
 //RESTAURAR PASSWORD
 viewsRouter.get("/restore", privateAccess, viewRestore);

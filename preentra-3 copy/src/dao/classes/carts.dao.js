@@ -17,32 +17,40 @@ export default class Cart {
     let result = await cartModel.create({});
     return result;
   };
-  addProduct = async (cartId, productId, quantity) => {
-    const cart = await cartModel.findById(cartId);
-    console.log(cart);
+  addProduct = async (id, productId) => {
+    const cart = await this.getCartById(id);
 
-    const productIndex = cart.products.findIndex(
-      (item) => item.product._id.toString() === productId.toString()
+    const index = cart.products.findIndex(
+      (p) => p.product._id.toString() == productId
     );
-
-    if (productIndex === -1) {
-      cart.products.push({ product: productId, quantity });
+    if (index >= 0) {
+      cart.products[index].quantity += 1;
     } else {
-      throw new Error("El producto ya existe en el carrito.");
+      cart.products.push({ product: productId, quantity: 1 });
     }
-    return await cart.save();
+
+    await cartModel.updateOne({ _id: id }, cart);
   };
   deleteProduct = async (cid, pid) => {
-    let cart = await cartModel.findById(cid);
-    let product = cart.products.filter((p) => p.product !== pid);
+    try {
+      let cart = await cartModel.findById(cid);
+      //let product = cart.products.filter((p) => p.product !== pid);
 
-    if (product === 0) {
-      console.log("Producto no encontrado");
-    } else {
-      cart.products.splice(product, 1);
+      if (!cart) {
+        console.log("El carrito no existe");
+      } else {
+        cart.products = cart.products.filter(
+          (p) => p.product._id.toString() !== pid
+        );
+      }
+
+      await cart.save();
+    } catch (error) {
+      console.error(
+        `Error al borrar el producto del carrito: ${error.message}`
+      );
+      throw error;
     }
-
-    return await cart.save();
   };
   deleteAll = async (cid) => {
     const cart = await cartModel.findById(cid);
