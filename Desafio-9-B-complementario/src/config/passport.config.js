@@ -31,6 +31,7 @@ const initializePassport = () => {
             age,
             password: createHash(password),
             cart,
+            role: "usuario",
           };
 
           // Guardar el usuario

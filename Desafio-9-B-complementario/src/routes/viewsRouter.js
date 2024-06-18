@@ -1,4 +1,5 @@
 import express from "express";
+import { checkRole } from "../middlewares/checkRole.auth.js";
 import { privateAccess } from "../middlewares/privateAuth.js";
 import { publicAccess } from "../middlewares/publicAuth.js";
 import {
@@ -15,7 +16,6 @@ import {
   viewLoggerTest,
   viewCreateProd,
 } from "../controllers/views.controller.js";
-//import checkRole from "../middlewares/checkRole.middlewares.js";
 
 const viewsRouter = express.Router();
 
@@ -32,7 +32,7 @@ viewsRouter.get("/chat", privateAccess, viewChat); //checkRole("usuario"),
 viewsRouter.get("/products", privateAccess, viewProducts);
 
 //CREA PRODUCTO
-viewsRouter.get("/createProd", privateAccess, viewCreateProd);
+viewsRouter.get("/createProd", checkRole, viewCreateProd);
 
 //RENDERIZA LA VISTA DEL CARRITO
 viewsRouter.get("/carts/:cid", privateAccess, viewCarts); //FUNCIONA

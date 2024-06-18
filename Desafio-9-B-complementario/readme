@@ -24,6 +24,8 @@ ASPECTOS A INCLUIR:
 
   - El campo owner deberá guardar sólo el correo electrónico (o \_id, lo dejamos a tu conveniencia) del usuario que lo haya creado (Sólo podrá recibir usuarios premium)
 
+🟢
+
 ---
 
 - Modificar los permisos de modificación y eliminación de productos para que:

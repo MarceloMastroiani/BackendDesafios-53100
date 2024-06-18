@@ -8,7 +8,6 @@ import {
   updateProd,
   deleteProdu,
 } from "../controllers/products.controller.js";
-import { checkRole } from "../middlewares/checkRole.middlewares.js";
 
 const productsRouter = express.Router();
 
@@ -25,7 +24,7 @@ productsRouter.get("/:id", getByIdd);
 productsRouter.get("/:bran", getByBrands);
 
 //AGREGA UN PRODUCTO
-productsRouter.post("/add", checkRole(["admin", "premium"]), addProd);
+productsRouter.post("/add", addProd);
 
 //EDITAR UN PRODUCTO
 productsRouter.put("/edit/:id", updateProd); //checkRole("admin"),
@@ -34,3 +33,6 @@ productsRouter.put("/edit/:id", updateProd); //checkRole("admin"),
 productsRouter.delete("/delete/:id", deleteProdu); //checkRole("admin"),
 
 export default productsRouter;
+
+// /api/products/delete/66184c198c1f084f0077c45b
+// /api/products/delete/6671bcbbf76febf469a34a9a

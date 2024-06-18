@@ -35,8 +35,14 @@ export default class Product {
     return result;
   };
 
-  deleteProduct = async (id) => {
+  deleteProductAdmin = async (id) => {
     let result = await productsModel.deleteOne({ _id: id });
+    console.log("Producto eliminado");
+    return result;
+  };
+
+  deleteProductPremium = async (id, owner) => {
+    let result = await productsModel.deleteOne({ _id: id, owner: owner });
     console.log("Producto eliminado");
     return result;
   };

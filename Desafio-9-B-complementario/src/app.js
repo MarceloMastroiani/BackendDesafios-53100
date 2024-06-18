@@ -22,18 +22,6 @@ const app = express();
 const PORT = entorno.port;
 const MONGO_URL = entorno.mongoUrl;
 
-//MIDDLEWARES
-app.use(addLogger);
-app.set("views", __dirname + "/views");
-app.set("view engine", "handlebars");
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(__dirname + "/public"));
-app.engine("handlebars", handlebars.engine());
-
-//RUTAS
-app.use("/api/products", productsRouter);
-app.use("/api/carts", cartsRouter);
 app.use(
   session({
     store: new MongoStore({
@@ -46,13 +34,19 @@ app.use(
   })
 );
 
+//MIDDLEWARES
+app.use(addLogger);
+app.set("views", __dirname + "/views");
+app.set("view engine", "handlebars");
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(__dirname + "/public"));
+app.engine("handlebars", handlebars.engine());
+
 //USANDO PASSPORT
 initilizePassport();
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use("/", viewsRouter);
-app.use("/api/sessions", sessionRouter);
 
 //LISTEN
 const server = app.listen(PORT, () =>
@@ -68,7 +62,7 @@ io.on("connection", async (socket) => {
 
   //ELIMINA EL PRODUCTO
   socket.on("delete product", async ({ id }) => {
-    await productService.deleteProduct(id);
+    await productService.deleteProductAdmin(id);
     const products = await productService.getAll();
     io.emit("list updated", { products: products });
   });
@@ -87,3 +81,9 @@ io.on("connection", async (socket) => {
     console.log("Socket desconectado");
   });
 });
+
+//RUTAS
+app.use("/api/products", productsRouter);
+app.use("/api/carts", cartsRouter);
+app.use("/", viewsRouter);
+app.use("/api/sessions", sessionRouter);

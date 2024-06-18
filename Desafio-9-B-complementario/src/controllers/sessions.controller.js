@@ -3,7 +3,6 @@ import { createHash } from "../utils.js";
 import UserDTO from "../dao/DTOs/current.dto.js";
 import { genereteToken, verifyToken } from "../utils.js";
 import MailingService from "../services/mailing.js";
-import e from "express";
 
 export const sessionRegister = async (req, res) => {
   res.status(201).send({ status: "success", message: "Usuario registrado" });
@@ -15,16 +14,18 @@ export const sessionFailRegister = async (req, res) => {
 };
 
 export const sessionLogin = async (req, res) => {
-  if (!req.user) return res.status(400).send("error");
+  //if (!req.user) return res.status(400).send("error");
+  const user = req.user;
+
   req.session.user = {
-    first_name: req.user.first_name,
-    last_name: req.user.last_name,
-    email: req.user.email,
-    age: req.user.age,
-    cart: req.user.cart,
-    role: req.user.role,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    email: user.email,
+    age: user.age,
+    cart: user.cart,
+    role: user.role,
   };
-  res.status(200).send({ status: "success", payload: req.user });
+  res.status(200).send({ status: "success", payload: req.session.user });
 };
 
 export const sessionFailLogin = async (req, res) => {

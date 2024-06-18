@@ -1,4 +1,5 @@
 import productsModel from "../dao/models/products.js";
+import userModel from "../dao/models/users.js";
 import { productService } from "../repositories/index.js";
 import { CustomError } from "../utils/errorHandling/customError.js";
 import { errorTypes } from "../utils/errorHandling/errorTypes.js";
@@ -84,15 +85,17 @@ export const getByBrands = async (req, res) => {
 };
 
 export const addProd = async (req, res) => {
-  const newProduct = req.body;
+  const { title, description, code, category, brand, price, stock, owner } =
+    req.body;
+
   if (
-    !newProduct.title ||
-    !newProduct.description ||
-    !newProduct.code ||
-    !newProduct.category ||
-    !newProduct.brand ||
-    !newProduct.price ||
-    !newProduct.stock
+    !title ||
+    !description ||
+    !code ||
+    !category ||
+    !brand ||
+    !price ||
+    !stock
   ) {
     logger.error("Error al agregar producto");
     throw CustomError.CustomError(
@@ -102,6 +105,18 @@ export const addProd = async (req, res) => {
       res.send(getProductErrorInfo(newProduct))
     );
   }
+
+  const newProduct = {
+    title,
+    description,
+    code,
+    category,
+    brand,
+    price,
+    stock,
+    owner,
+  };
+
   if (req.user.role == "premium") {
     newProduct.owner = req.user.email;
   }
@@ -122,7 +137,23 @@ export const updateProd = async (req, res) => {
 export const deleteProdu = async (req, res) => {
   let id = req.params.id;
 
-  let result = await productService.deleteProduct(id);
+  if (req.user.role == "usuario") {
+    throw CustomError.CustomError(
+      "Error",
+      "No tienes permiso para eliminar este producto",
+      errorTypes.ERROR_UNAUTHORIZED,
+      res.send(getProductErrorInfo(newProduct))
+    );
+  }
+  if (req.user.role == "premium") {
+    let owner = req.user.email;
+    let result = await productService.deleteProductPremium(id, owner);
+    res.json({ result });
+  } else {
+    res.status(403).send("No tienes permiso para eliminar este producto");
+  }
+
+  let result = await productService.deleteProductAdmin(id);
   logger.info(`Eliminado el producto con id: ${id}`);
   res.json({ result });
 };
