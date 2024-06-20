@@ -136,7 +136,8 @@ export const updateProd = async (req, res) => {
 
 export const deleteProdu = async (req, res) => {
   let id = req.params.id;
-
+  //VERIFICA SI EL USUARIO ES ROL USUARIO
+  console.log("hola desde afura de rol usuario");
   if (req.user.role == "usuario") {
     throw CustomError.CustomError(
       "Error",
@@ -144,16 +145,19 @@ export const deleteProdu = async (req, res) => {
       errorTypes.ERROR_UNAUTHORIZED,
       res.send(getProductErrorInfo(newProduct))
     );
-  }
-  if (req.user.role == "premium") {
+    //VERIFICA SI EL USUARIO ES ROL PREMIUM
+    console.log("hola desde afura de rol premium");
+  } else if (req.user.role == "premium") {
     let owner = req.user.email;
     let result = await productService.deleteProductPremium(id, owner);
+    res.json({ result });
+    //VERIFICA SI EL USUARIO ES ROL ADMIN
+    console.log("hola desde afura de rol admin");
+  } else if (req.user.role == "admin") {
+    let result = await productService.deleteProductAdmin(id);
+    logger.info(`Eliminado el producto con id: ${id}`);
     res.json({ result });
   } else {
     res.status(403).send("No tienes permiso para eliminar este producto");
   }
-
-  let result = await productService.deleteProductAdmin(id);
-  logger.info(`Eliminado el producto con id: ${id}`);
-  res.json({ result });
 };

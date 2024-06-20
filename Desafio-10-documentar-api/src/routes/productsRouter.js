@@ -27,12 +27,11 @@ productsRouter.get("/:bran", getByBrands);
 productsRouter.post("/add", addProd);
 
 //EDITAR UN PRODUCTO
-productsRouter.put("/edit/:id", updateProd); //checkRole("admin"),
+productsRouter.put("/edit/:id", updateProd);
 
 //ELIMINAR UN PRODUCTO
-productsRouter.delete("/delete/:id", deleteProdu); //checkRole("admin"),
+productsRouter.delete("/delete/:id", deleteProdu);
 
 export default productsRouter;
 
-// /api/products/delete/66184c198c1f084f0077c45b
-// /api/products/delete/6671bcbbf76febf469a34a9a
+// /api/products/delete/66184e0d8c1f084f0077c46f
