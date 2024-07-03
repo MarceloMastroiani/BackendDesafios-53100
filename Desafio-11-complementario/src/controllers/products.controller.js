@@ -116,6 +116,7 @@ export const addProd = async (req, res) => {
     owner,
   };
 
+  //COMENTAR LA LINEA DE ABAJO PARA Q FUNCIONAR EL TEST
   if (req.user.role == "premium") {
     newProduct.owner = req.user.email;
   }
