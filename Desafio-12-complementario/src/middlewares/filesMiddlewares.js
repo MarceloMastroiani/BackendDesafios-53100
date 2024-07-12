@@ -7,11 +7,14 @@ const storage = multer.diskStorage({
     if (req.originalUrl.includes("documents")) {
       destinationFolder = "/documents";
     }
-
-    cb(null, `${__dirname}/../public/uploads${destinationFolder}`);
+    if (req.originalUrl.includes("profile-picture")) {
+      destinationFolder = "/profiles";
+    }
+    cb(null, `${__dirname}/public/${destinationFolder}`);
   },
   filename: function (req, file, cb) {
     cb(null, `${Date.now()} - ${file.originalname}`);
+    //
   },
 });
 

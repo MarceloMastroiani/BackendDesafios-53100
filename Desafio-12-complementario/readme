@@ -32,6 +32,3 @@ PARA REALIZAR LOS TESTS:
 
 se debe comentar la linea 119 a 121 del archivo products.controller.js
 el cual no deja funcionar el test de crear producto
-
-ERROR:
-no such file or directory, open 'C:\Users\Dell\CODING\CURSOS-CODER\CursoCoder-Backend\Desafio-Entregables\Desafio-12-complementario\public\uploads\documents\1720673794871 - 2012714101024_1.jpg'

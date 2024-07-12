@@ -6,6 +6,7 @@ import {
   deleteUser,
   premiumUser,
   getDocuments,
+  getProfilePicture,
 } from "../controllers/users.controller.js";
 import { upload } from "../middlewares/filesMiddlewares.js";
 
@@ -27,6 +28,13 @@ usersRouter.delete("/delete/:id", deleteUser);
 usersRouter.get("/premium/:id", premiumUser);
 
 //SUBIR DOCUMENTOS
-usersRouter.post("/:id/documents", upload.array("documents"), getDocuments);
+usersRouter.post("/:id/documents", upload.array("documents", 4), getDocuments);
+
+//SUBIR PROFILE PICTURE
+usersRouter.post(
+  "/:id/profile-picture",
+  upload.single("profiles"),
+  getProfilePicture
+);
 
 export default usersRouter;

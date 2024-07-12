@@ -33,6 +33,10 @@ const schema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+  profile_picture: {
+    type: String,
+    default: "",
+  },
 });
 
 schema.pre("find", function () {

@@ -50,11 +50,8 @@ export const getDocuments = async (req, res) => {
     console.log("entro");
     let id = req.params.id;
     let files = req.files;
-    console.log(id);
-    console.log(files);
 
     const user = await userService.getById(id);
-    console.log(user);
     let documents = user.documents || [];
 
     documents = [
@@ -67,9 +64,24 @@ export const getDocuments = async (req, res) => {
       }),
     ];
 
-    let result = await this.update(id, { documents: documents });
+    let result = await userService.update(id, { documents: documents });
 
     res.send({ status: "success", payload: result });
+  } catch (error) {
+    res.status(500).send({ status: "error", error: error.message });
+  }
+};
+
+export const getProfilePicture = async (req, res) => {
+  try {
+    let id = req.params.id;
+    let file = req.file;
+
+    let reuslt = await userService.update(id, {
+      profile_picture: file.path.split("public")[1].replace(/\\/g, "/"),
+    });
+
+    res.send({ status: "success", payload: reuslt });
   } catch (error) {
     res.status(500).send({ status: "error", error: error.message });
   }
